@@ -1,9 +1,11 @@
 import { podcasts } from '../data.js';
 import Podcast from './models/Podcast.js';
 import { createPodcastCard } from './components/PodcastCard.js';
+import Modal from './components/Modal.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const podcastGrid = document.getElementById('podcast-grid');
+    const modal = new Modal();
     
     // Map raw data to Podcast instances
     const podcastInstances = podcasts.map(data => new Podcast(data));
@@ -12,10 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     podcastInstances.forEach(podcast => {
         const card = createPodcastCard(podcast);
         
-        // Setup click handler for modal (to be implemented in phase 4)
+        // Setup click handler for modal
         card.addEventListener('click', () => {
-            console.log('Open modal for:', podcast.title);
-            // Modal logic will be triggered here
+            modal.open(podcast);
         });
         
         podcastGrid.appendChild(card);
